@@ -4,4 +4,6 @@
 
 @interface MyHTTPConnection : HTTPConnection
 
+- (void)setDockTileBadge:(NSString *)label;
+
 @end

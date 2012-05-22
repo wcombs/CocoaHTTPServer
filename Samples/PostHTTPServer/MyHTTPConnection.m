@@ -6,7 +6,7 @@
 
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
-static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
+static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE;
 
 
 /**
@@ -14,6 +14,12 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 **/
 
 @implementation MyHTTPConnection
+
+- (void)setDockTileBadge:(NSString *)label
+{
+    NSDockTile *tile = [[NSApplication sharedApplication] dockTile];
+    [tile setBadgeLabel:label];
+}
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path
 {
@@ -68,6 +74,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		
 		int answer = [[postStr substringFromIndex:7] intValue];
 		
+		//NSString *answerString = [NSString stringWithFormat:@"%d", answer];
+		[self setDockTileBadge:[postStr substringFromIndex:7]];
+
 		NSData *response = nil;
 		if(answer == 10)
 		{
